@@ -27,6 +27,11 @@ namespace DiceSpirit.Core
         // Fired by DiceRoller to lock/unlock the Roll button
         public static event Action<bool> OnRollLockChanged;
 
+        // Fired by GameCalculator after it sets initial Points/Multiplier from dice result.
+        // SpiritCardManager listens here, applies card effects, then calls calculator.Recompute().
+        // The GameCalculator reference is passed so the manager can call SetMultiplier/AddToPoints.
+        public static event Action<int, GameCalculator> OnRollComplete_PostSet;
+
         // ── Safe invoke helpers ──────────────────────────────────────────────
         // These check for null before invoking so callers don't need to worry
         // about whether anyone is subscribed yet.
@@ -39,5 +44,7 @@ namespace DiceSpirit.Core
                                                           => OnSpiritCardActivated?.Invoke(id);
         public static void RaiseRollLockChanged(bool isLocked)
                                                           => OnRollLockChanged?.Invoke(isLocked);
+        public static void RaiseRollComplete_PostSet(int result, GameCalculator calc)
+                                                          => OnRollComplete_PostSet?.Invoke(result, calc);
     }
 }
