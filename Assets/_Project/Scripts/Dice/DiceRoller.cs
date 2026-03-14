@@ -40,13 +40,24 @@ namespace DiceSpirit.Dice
         // Adjust these values to match your actual dice mesh orientation.
         private readonly Quaternion[] _faceRotations = new Quaternion[7]
         {
-            Quaternion.identity,                          // index 0 unused
+            #region ---- Previous Dice Rotation ----
+
+            /*Quaternion.identity,                       // index 0 unused
             Quaternion.Euler(  0,   0,   0),             // face 1
             Quaternion.Euler(180,   0,   0),             // face 2
             Quaternion.Euler( 90,   0,   0),             // face 3
             Quaternion.Euler(-90,   0,   0),             // face 4
             Quaternion.Euler(  0,   0,  90),             // face 5
-            Quaternion.Euler(  0,   0, -90),             // face 6
+            Quaternion.Euler(  0,   0, -90),             // face 6*/
+            #endregion ---- Previous Dice Rotation ----
+
+            Quaternion.identity,                         // index 0 unused
+            Quaternion.Euler(0, 0, 0),                   // face 1
+            Quaternion.Euler(0, 90, 270),                // face 2
+            Quaternion.Euler(0, -270, 0),                // face 3
+            Quaternion.Euler(0, -90, 0),                 // face 4
+            Quaternion.Euler(-270, -180, -180),          // face 5
+            Quaternion.Euler(0, -180, 0),                // face 6
         };
 
         // ── Unity Lifecycle ──────────────────────────────────────────────────
