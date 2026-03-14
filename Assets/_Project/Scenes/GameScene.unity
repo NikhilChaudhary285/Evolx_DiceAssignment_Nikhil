@@ -12361,6 +12361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1109989773}
+  - component: {fileID: 1109989774}
   m_Layer: 0
   m_Name: DebugManager
   m_TagString: Untagged
@@ -12383,6 +12384,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 500955513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1109989774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109989772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628c36240f0cf8e45affcd651d16b604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.UI.DebugPanel
+  diceRoller: {fileID: 1384911577}
+  forceResult3Button: {fileID: 1725396569}
+  forceResult6Button: {fileID: 315660273}
+  clearForceButton: {fileID: 880336221}
+  statusLabel: {fileID: 849281338}
 --- !u!1 &1257157718
 GameObject:
   m_ObjectHideFlags: 0
@@ -13097,6 +13115,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2432269299565241041, guid: 63dab728b5ae78e44a074292fb5dc993, type: 3}
   m_PrefabInstance: {fileID: 8376285735445275711}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1384911577 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7036934615522440450, guid: 63dab728b5ae78e44a074292fb5dc993, type: 3}
+  m_PrefabInstance: {fileID: 8376285735445275711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de19c411f3deae04597728cd44b6788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.Dice.DiceRoller
 --- !u!1 &1445617023
 GameObject:
   m_ObjectHideFlags: 0
@@ -13137,6 +13166,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1453824890}
+  - component: {fileID: 1453824894}
+  - component: {fileID: 1453824893}
+  - component: {fileID: 1453824892}
+  - component: {fileID: 1453824891}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -13159,6 +13192,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 500955513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453824891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453824889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7125625b1f8b5284ca2c5888718c613e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.UI.UIRollHistory
+  historyLabels:
+  - {fileID: 1339965448}
+  - {fileID: 124244233}
+  - {fileID: 1079886836}
+  - {fileID: 41182234}
+  - {fileID: 227884505}
+  maxHistory: 5
+  resultColor6: {r: 1, g: 0.84313726, b: 0, a: 1}
+  resultColor3: {r: 0.26666668, g: 1, b: 0.53333336, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1453824892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453824889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb62fd03659bfd4f92daf63006ebe97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.UI.UIEquationView
+  pointsLabel: {fileID: 1088692250}
+  multiplierLabel: {fileID: 1622419946}
+  totalLabel: {fileID: 1670933781}
+  totalRect: {fileID: 1670933780}
+  countUpDuration: 0.6
+  highlightColor: {r: 1, g: 0.84313726, b: 0, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1453824893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453824889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3cdcc47c255624a8de351b32ee7248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.SpiritCards.SpiritCardManager
+  spiritCards:
+  - {fileID: 11400000, guid: 89671c80d4f96374da468442423a63b6, type: 2}
+  - {fileID: 11400000, guid: 8f8f68f7704759941af627bab8415556, type: 2}
+--- !u!114 &1453824894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453824889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8487fcb7221483c46b79491e0f1d68a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.Core.GameCalculator
 --- !u!1 &1460069074
 GameObject:
   m_ObjectHideFlags: 0
