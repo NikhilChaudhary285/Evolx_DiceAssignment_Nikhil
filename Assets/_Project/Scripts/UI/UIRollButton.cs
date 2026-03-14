@@ -5,6 +5,7 @@
 
 using DiceSpirit.Core;
 using System.Numerics;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ namespace DiceSpirit.UI
     {
         // ── Inspector Fields ─────────────────────────────────────────────────
         [SerializeField] private Button rollButton;
+        [SerializeField] private float rollDebounce = 0.2f; // Extra padding time
 
         // ── Unity Lifecycle ──────────────────────────────────────────────────
         private void Awake()
@@ -54,8 +56,27 @@ namespace DiceSpirit.UI
 
         private void HandleRollLockChanged(bool isLocked)
         {
-            rollButton.interactable = !isLocked;
+            if (isLocked)
+            {
+                // Disable immediately when the roll starts
+                rollButton.interactable = false;
+            }
+            else
+            {
+                // Start the debounce routine to wait before re-enabling
+                StartCoroutine(DebounceEnableRoutine());
+            }
         }
+
+        private IEnumerator DebounceEnableRoutine()
+        {
+            // Wait for the specified debounce time
+            yield return new WaitForSeconds(rollDebounce);
+
+            // Re-enable the button
+            rollButton.interactable = true;
+        }
+
     }
 }
 
