@@ -140,5 +140,11 @@ namespace DiceSpirit.Dice
 
             return Random.Range(1, 7); // Unity's Random.Range int is min-inclusive, max-exclusive
         }
+
+        /// Called by DebugPanel to force the next roll result (0 = random).
+        public void SetDebugForceResult(int value)
+        {
+            debugForceResult = Mathf.Clamp(value, 0, 6);
+        }
     }
 }

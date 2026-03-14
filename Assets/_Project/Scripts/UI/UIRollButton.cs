@@ -61,12 +61,12 @@ namespace DiceSpirit.UI
 
 #region ---- Logic Work Done - Checking/Testing ----
 
-/*## Now we will Check / Test after all of these Steps
+/* ## Now we will Check / Test after all of these Steps
 
 **What to look for if we have errors:**
-- `namespace not found` → check our `using` statements at the top of each file
-- `type does not exist` → check the filename matches the class name exactly
-- `missing ;` → C# syntax error, check the line number shown
+- `namespace not found` -> check our `using` statements at the top of each file
+- `type does not exist` -> check the filename matches the class name exactly
+- `missing ;` -> C# syntax error, check the line number shown
 
 ** Quick test in Play mode(no scene setup yet):**
 - We can't fully test yet because we haven't built the scene
@@ -80,5 +80,5 @@ namespace DiceSpirit.UI
 4) GameCalculator  — owns Points/Multiplier/Total, handles math
 5) SpiritCardManager — checks card conditions, applies effects
 6) DiceRoller      — runs animation coroutine, emits result
-7) UIRollButton    — fires roll event, locks itself during roll*/
+7) UIRollButton    — fires roll event, locks itself during roll */
 #endregion ---- Logic Work Done - Checking/Testing ----
