@@ -3,11 +3,12 @@
 // Uses NumberJuice for count-up, bounce, and color flash effects.
 // Responsible ONLY for display — never modifies game state.
 
-using System.Collections;
-using TMPro;
-using UnityEngine;
 using DiceSpirit.Core;
 using DiceSpirit.VFX;
+using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace DiceSpirit.UI
 {
@@ -87,6 +88,9 @@ namespace DiceSpirit.UI
                 onComplete: () => multiplierDone = true
             ));
 
+            // Inserting After the two StartCoroutine CountTo calls:
+            StartCoroutine(TickAudioDuringCountUp(countUpDuration));
+
             // Also bounce the Points label rect
             if (pointsLabel.rectTransform != null)
                 StartCoroutine(NumberJuice.BounceScale(pointsLabel.rectTransform));
@@ -112,5 +116,45 @@ namespace DiceSpirit.UI
 
             _animationCoroutine = null;
         }
+
+        private IEnumerator TickAudioDuringCountUp(float duration)
+        {
+            // Fire a tick sound every 0.06 seconds during the count-up
+            float elapsed = 0f;
+            float interval = 0.06f;
+
+            while (elapsed < duration)
+            {
+                AudioManager.Instance?.Play("number_tick");
+                yield return new WaitForSeconds(interval);
+                elapsed += interval;
+            }
+        }
     }
 }
+
+#region Audio Work Done - Checking/Testing
+
+/* Adding `using DiceSpirit.Core;` at the top of `UIEquationView.cs` if not already there.
+
+The `?.` null-conditional on `AudioManager.Instance` means if audio isn't set up, this line silently skips instead of crashing. Defensive coding.
+
+## Final Play Test Checklist:
+
+Before recording, Checking every step mentally:
+
+1) Roll button disables during animation, re-enables after
+2) Random result: Points = dice, Multiplier = 10, Total = Points×10
+3) Result 6: Multiplier overrides to 2, Total = 6×2 = 12, CardA glows+particles
+4) Result 3: Points becomes 13, Total = 13×10 = 130, CardB glows+particles  
+5) Non-trigger result: neither card activates
+6) History panel updates every roll, shows last 5, newest at top
+7) Number labels count up with bounce animation
+8) Total label gets bigger bounce than Points/Multiplier
+9) Card resets to normal color when next roll starts
+10) Debug panel: Force 3 button correctly forces result = 3
+11) Debug panel: Force 6 button correctly forces result = 6
+12) Debug panel: Clear button returns to random
+13) All 4 sounds play at correct moments
+14) Console: zero red errors during any of the above tests */
+#endregion Audio Work Done - Checking/Testing

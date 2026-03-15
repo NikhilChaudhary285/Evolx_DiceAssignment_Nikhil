@@ -13234,7 +13234,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0a2e83b9b95cb439482d4f522b17fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiceSpirit.Core.AudioManager
-  clips: []
+  clips:
+  - name: roll_start
+    clip: {fileID: 8300000, guid: c71d1734712a2ff43a8498b6f615f42f, type: 3}
+  - name: roll_settle
+    clip: {fileID: 8300000, guid: 600291f68fd5b0a4c8ff4ceb36ab76d3, type: 3}
+  - name: card_trigger
+    clip: {fileID: 8300000, guid: ca28aa600040a974b898aefb18f0e15b, type: 3}
+  - name: number_tick
+    clip: {fileID: 8300000, guid: 565f9be4c59de594aa9a2682f8f0fb0a, type: 3}
   poolSize: 6
   masterVolume: 0.8
 --- !u!1 &1453824889
