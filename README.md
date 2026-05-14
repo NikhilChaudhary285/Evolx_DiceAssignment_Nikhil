@@ -1,266 +1,365 @@
-\# DiceSpirit — Unity Assignment
+# 🎲 DiceSpirit — Unity Prototype Project
 
-\*\*Submitted by:\*\* Nikhil Chaudhary || nikhilchaudhary285@gmail.com
+### Unity 6 • Event-Driven Architecture • ScriptableObject Systems
 
-\*\*Position:\*\* Unity Developer — Evolx Games
+A modular dice-based gameplay prototype built in Unity, focused on event-driven architecture, data-driven gameplay systems, and scalable Spirit Card mechanics.
 
-\*\*Date:\*\* 15-03-2026
+---
 
+# 👨‍💻 Project Details
 
+**Developed By:** Nikhil Chaudhary  
 
-\---
+**Email:** nikhilchaudhary285@gmail.com  
 
+**Project Type:** Gameplay Systems Prototype  
 
+**Engine:** Unity 6 (URP)
 
-\## Unity Version
+---
 
-Unity \*\*6000.0.x LTS\*\* (Unity 6) || Current Version Used: 6000.3.11f1
+# 🛠 Unity Version
 
-Render Pipeline: Universal Render Pipeline (URP)
+- Unity **6000.0.x LTS (Unity 6)**  
+- Current Version Used: **6000.3.11f1**  
+- Render Pipeline: **Universal Render Pipeline (URP)**  
 
+---
 
+# ▶️ Setup Instructions
 
-\---
+1. Unzip the project folder  
 
+2. Open **Unity Hub**  
 
+3. Click **Open** and select the `DiceSpirit` folder  
 
-\## Setup Instructions
+4. Wait for Unity to import assets (first launch may take 1–2 minutes)  
 
-1\. Unzip the project folder
+5. If prompted to upgrade the project, click **Confirm**  
 
-2\. Open \*\*Unity Hub\*\* → Click \*\*"Open"\*\* → Select the `DiceSpirit` folder
+6. Open scene:  
+   `Assets/_Project/Scenes/GameScene.unity`
 
-3\. Unity will import assets automatically (1–2 minutes first open)
-
-4\. If prompted to upgrade the project, click \*\*"Confirm"\*\*
-
-5\. Open `Assets/\\\_Project/Scenes/GameScene.unity`
-
-6\. Press \*\*Play\*\*
-
-
+7. Press **Play**
 
 > No external packages required beyond TextMeshPro (auto-imported by Unity).
 
+---
 
-
-\---
-
-
-
-\## Controls
+# 🎮 Controls
 
 | Input | Action |
-
 |---|---|
+| Click **ROLL** | Roll the dice |
+| Click **Force Roll = 3** | Forces next roll result to 3 |
+| Click **Force Roll = 6** | Forces next roll result to 6 |
+| Click **Clear Force** | Returns to random rolls |
 
-| Click \*\*ROLL\*\* | Roll the dice |
+---
 
-| Click \*\*Force Roll = 3\*\* | Forces next roll result to 3 (CardB trigger) |
+# 🎯 Prototype Gameplay Rules
 
-| Click \*\*Force Roll = 6\*\* | Forces next roll result to 6 (CardA trigger) |
+- Dice produces a result from **1–6**
+- Default equation: **Points × 10 = Total**
 
-| Click \*\*Clear Force\*\* | Returns to random rolls |
+---
 
+## Spirit Card A — Fortune's Edge
 
+If dice result equals **6**:
 
-\---
-
-
-
-\## Game Rules
-
-\- Dice produces a result 1–6
-
-\- Default equation: \*\*Points × 10 = Total\*\*
-
-\- \*\*Spirit Card A — Fortune's Edge:\*\* If dice = 6, Multiplier overrides to 2 → `6 × 2 = 12`
-
-\- \*\*Spirit Card B — Trinity's Gift:\*\* If dice = 3, +10 added to Points → `13 × 10 = 130`
-
-\- Cards apply after the roll finalises, before the equation displays
-
-
-
-\---
-
-
-
-\## Architecture Overview
-
+```txt
+6 × 2 = 12
 ```
 
-GameEvents (static C# event bus)
+### Effect
 
-subscribed by all systems — zero direct cross-references
+- Multiplier overrides to **2**
 
+---
 
-DiceRoller         -> emits OnRollComplete(int)
+## Spirit Card B — Trinity's Gift
 
-GameCalculator     -> owns Points/Multiplier/Total state
+If dice result equals **3**:
 
-SpiritCardManager  -> checks SpiritCardData conditions, applies effects
-
-UIEquationView     -> animates number transitions (count-up, bounce, flash)
-
-SpiritCardView     -> per-card VFX (glow, pulse, particles) on activation
-
-UIRollHistory      -> sliding window of last 5 results
-
-AudioManager       -> pooled AudioSources, event-driven SFX
-
+```txt
+13 × 10 = 130
 ```
 
+### Effect
 
+- Adds **+10** bonus points before calculation
 
-\*\*Design Patterns used:\*\*
+---
 
-\- \*\*Observer / Event Bus\*\* — `GameEvents` static class decouples all systems
+Cards apply after the dice roll finalizes and before the final equation displays.
 
-\- \*\*Data-Driven Design\*\* — Spirit Card rules live in ScriptableObjects, not code
+---
 
-\- \*\*Object Pool\*\* — AudioManager pools 6 AudioSources for overlapping SFX
+# 🏗 Architecture Overview
 
-\- \*\*Single Responsibility\*\* — every script does exactly one job
+The entire project follows an event-driven and modular architecture where systems communicate through a centralized event bus.
 
-\- \*\*SOLID principles\*\* — Open/Closed: adding a new Spirit Card requires zero code changes
-
-
-
-\---
-
-
-
-\## Project Structure
-
+```txt
+GameEvents (Static Event Bus)
+│
+├── DiceRoller
+│   └── Emits OnRollComplete(int)
+│
+├── GameCalculator
+│   └── Owns Points / Multiplier / Total state
+│
+├── SpiritCardManager
+│   └── Evaluates SpiritCardData rules
+│
+├── UIEquationView
+│   └── Handles animated UI number transitions
+│
+├── SpiritCardView
+│   └── Plays card VFX and visual feedback
+│
+├── UIRollHistory
+│   └── Displays last 5 dice results
+│
+└── AudioManager
+    └── Event-driven pooled audio playback
 ```
 
-Assets/\\\_Project/
+---
 
+# 🧠 Design Patterns & Architecture
+
+## Observer / Event Bus Pattern
+
+A centralized `GameEvents` static class decouples gameplay systems completely.
+
+### Benefits
+
+- Zero direct references between systems
+- Cleaner architecture
+- Easier scalability
+- Safer system communication
+
+---
+
+## Data-Driven Design
+
+All Spirit Card logic exists inside ScriptableObjects rather than hardcoded scripts.
+
+### Benefits
+
+- Designer-friendly workflow
+- No code modifications required
+- Fast iteration speed
+- Easily extensible systems
+
+---
+
+## Object Pooling
+
+`AudioManager` pools multiple AudioSources for overlapping sound playback.
+
+### Benefits
+
+- Prevents audio cutoff
+- Reduces allocations
+- Improves runtime performance
+
+---
+
+## Single Responsibility Principle
+
+Each script is responsible for only one system or feature.
+
+### Examples
+
+- Dice rolling
+- Calculation logic
+- UI display
+- Audio playback
+- Spirit Card effects
+
+---
+
+## SOLID Principles
+
+The project follows extensible architecture principles.
+
+### Example
+
+Adding a new Spirit Card requires:
+
+- Creating a new `SpiritCardData` asset
+- Setting values in Inspector
+- No code changes required
+
+---
+
+# 📂 Project Structure
+
+```txt
+Assets/_Project/
 ├── Scripts/
-
-│   ├── Core/          GameEvents, GameCalculator, AudioManager
-
-│   ├── Dice/          DiceRoller
-
-│   ├── SpiritCards/   SpiritCardData (SO), SpiritCardManager, SpiritCardView
-
-│   ├── UI/            UIEquationView, UIRollButton, UIRollHistory, DebugPanel
-
-│   └── VFX/           NumberJuice
-
-├── ScriptableObjects/ CardA\\\_Multiplier, CardB\\\_BonusPoints
-
-├── Prefabs/           Dice, Cards, UI elements
-
-├── Materials/         DiceMaterial
-
-├── Audio/             roll\\\_start, roll\\\_settle, card\\\_trigger, number\\\_tick
-
-└── Scenes/            GameScene
-
-
-└── Sprites/           Dice Sprites
-    
-   └── Normal\_Sprites/ Dice Face Sprites
-
-
-&#x20;  └── TMPro\_Sprites/  Dice Face TMPro\_Sprite Asset Sprites
-
+│   ├── Core/
+│   │   ├── GameEvents
+│   │   ├── GameCalculator
+│   │   └── AudioManager
+│   │
+│   ├── Dice/
+│   │   └── DiceRoller
+│   │
+│   ├── SpiritCards/
+│   │   ├── SpiritCardData
+│   │   ├── SpiritCardManager
+│   │   └── SpiritCardView
+│   │
+│   ├── UI/
+│   │   ├── UIEquationView
+│   │   ├── UIRollButton
+│   │   ├── UIRollHistory
+│   │   └── DebugPanel
+│   │
+│   └── VFX/
+│       └── NumberJuice
+│
+├── ScriptableObjects/
+│   ├── CardA_Multiplier
+│   └── CardB_BonusPoints
+│
+├── Prefabs/
+├── Materials/
+├── Audio/
+├── Scenes/
+└── Sprites/
 ```
 
+---
 
-
-\---
-
-
-
-\## Third-Party Assets
+# 🔊 Third-Party Assets
 
 | Asset | Source | License |
-
 |---|---|---|
+| Audio SFX | Generated using sfxr.me | Free / Royalty-Free |
+| Dice Sprites | Custom made via Canva | Free for use |
+| TextMeshPro | Unity Built-In Package | Unity Companion License |
 
-| Audio SFX (4 clips) | Generated via sfxr.me | Free, royalty-free |
-| Dice Sprites (1-6) | Custom made via Canva | Free for use / Custom |
+> No paid assets used.
 
-| TextMeshPro | Unity Package (built-in) | Unity Companion License |
+---
 
+# ⚙️ Technical Implementation Notes
 
+## Why URP?
 
-> No paid assets used. All assets are either Unity built-ins or freely generated.
+URP was chosen for emission-based glow effects and lightweight rendering.
 
+### Benefits
 
+- Better visual effects
+- Improved performance
+- Cleaner material workflows
 
-\---
+---
 
+## Why ScriptableObjects?
 
+Spirit Card logic belongs in reusable data assets rather than gameplay scripts.
 
-\## Implementation Notes
+### Benefits
 
+- Designer-friendly architecture
+- Easy balancing
+- Faster iteration
+- Open/Closed principle support
 
+---
 
-\*\*Why URP?\*\* Emission support for card glow effects without custom shaders.
+## Why Static C# Events?
 
+Static events provide lightweight and high-performance communication between systems.
 
+### Benefits
 
-\*\*Why ScriptableObjects for Spirit Cards?\*\* Allows adding new cards without
+- Compile-time safety
+- No Inspector wiring
+- Cleaner dependencies
+- Better scalability
 
-touching C# code. A designer can create a new `SpiritCardData` asset, set the
+---
 
-trigger value and effect, and it works automatically.
+## Why Coroutines for Animation?
 
+All animations use coroutines instead of Update-based tweens.
 
+### Benefits
 
-\*\*Why static C# events over UnityEvents?\*\* Static events have zero Inspector
+- Self-contained animation flow
+- Easier interruption handling
+- Cleaner animation logic
 
-wiring overhead, compile-time safety, and better performance. UnityEvents are
+---
 
-better for designer-driven connections; C# events are better for programmer-
+## Why Audio Pooling?
 
-driven architecture like this.
+Multiple pooled AudioSources allow rapid overlapping UI tick sounds.
 
+### Benefits
 
+- Prevents audio interruption
+- Cleaner sound playback
+- Lower runtime allocation cost
 
-\*\*Coroutine animation choice:\*\* All animations run as coroutines rather than
+---
 
-Update()-based tweens to keep animation logic self-contained and easy to
+# 🧪 Extension Examples
 
-interrupt cleanly when a new roll starts mid-animation.
+| Feature | Implementation Approach |
+|---|---|
+| New Spirit Card | Create new `SpiritCardData` asset |
+| New UI Animation | Add coroutine-based visual effect |
+| Additional Dice Types | Extend DiceRoller logic |
+| Combo System | Subscribe to roll events in new system |
+| Multiplayer Support | Replace local event flow with network events |
 
+---
 
+# 📚 Key Learnings
 
-\*\*Audio pool:\*\* 6 pooled AudioSources allow rapid overlapping ticks during
+This prototype helped improve understanding of:
 
-number count-up without sounds cutting each other off.
+- Event-driven architecture
+- ScriptableObject workflows
+- Modular gameplay systems
+- Data-driven design
+- UI animation architecture
+- Audio pooling systems
+- Decoupled Unity architecture
+- SOLID principles in gameplay programming
 
-```
+---
 
-\\\*"Let's walk through on architecture"\\\*:
+# 📝 Prototype Development Summary
 
+| Step | Description |
+|---|---|
+| Step 1–2 | Unity 6 project setup and folder structure |
+| Step 3–4 | Event bus and gameplay systems |
+| Step 5–6 | Spirit Card ScriptableObjects |
+| Step 7 | DiceRoller and gameplay logic |
+| Step 8 | UI systems and visual effects |
+| Step 9 | Full gameplay assembly and testing |
+| Step 10 | AudioManager, SFX integration, README |
 
-> "The entire project is built on an event bus — a static `GameEvents` class. No script holds a direct reference to another script. The `DiceRoller` fires an event when the animation finishes. `GameCalculator` listens, sets the initial values, then passes itself to `SpiritCardManager` through a second event. The manager checks each `SpiritCardData` ScriptableObject — if its condition matches the dice result, it modifies the calculator's state and fires a card activation event. Then `GameCalculator` computes the final total and broadcasts it. The UI layer only ever listens and displays — it never touches state. Adding a new Spirit Card means creating one ScriptableObject asset. Zero code changes needed."
+---
 
+# 🚀 Prototype Goals
 
-\*"Why ScriptableObjects"\\\*:
+This project was created to explore and practice:
 
-
-> "Because card data belongs in data files, not in code. If the trigger condition or effect value is hardcoded in a script, every change requires a programmer and a recompile. With ScriptableObjects, a designer can create a new card, fill in the trigger value and effect type in the Inspector, and it works immediately. The system is open to extension without modification — that's the Open/Closed principle."
-
-
-\\## Complete Project Summary
-
-Step 1–2   Unity 6 project created, folder structure built
-
-Step 3–4   Scene saved, GameEvents event bus created
-
-Step 5–6   SpiritCardData ScriptableObject + CardA + CardB assets
-
-Step 7     GameCalculator + SpiritCardManager + DiceRoller + UIRollButton
-
-Step 8     NumberJuice + UIEquationView + SpiritCardView + UIRollHistory + DebugPanel
-
-Step 9     Full scene assembled, all fields wired, play tested
-
-Step 10    AudioManager + SFX + README
-
+- Event-driven gameplay architecture
+- ScriptableObject-based systems
+- Modular and scalable Unity programming
+- UI animation workflows
+- Decoupled gameplay communication
+- Clean architecture principles in Unity
