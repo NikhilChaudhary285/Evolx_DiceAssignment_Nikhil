@@ -363,3 +363,15 @@ This project was created to explore and practice:
 - UI animation workflows
 - Decoupled gameplay communication
 - Clean architecture principles in Unity
+
+---
+
+## 🔗 Links
+
+🎮 **Gameplay Video**  
+https://drive.google.com/file/d/138jGetTdDtE7mwRb7etYIdaVcpAKiFiP/view?usp=sharing
+
+💻 **GitHub Repository**  
+https://github.com/NikhilChaudhary285/Evolx_DiceAssignment_Nikhil
+
+---
